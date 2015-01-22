@@ -3,6 +3,16 @@
   <groupId>dropwizard-test</groupId>
   <artifactId>dropwizard-test</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <properties>
+    <dropwizard.version>0.7.1</dropwizard.version>
+  </properties>
+  <dependencies>
+    <dependency>
+        <groupId>io.dropwizard</groupId>
+        <artifactId>dropwizard-core</artifactId>
+        <version>${dropwizard.version}</version>
+    </dependency>
+  </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
