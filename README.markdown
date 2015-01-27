@@ -6,7 +6,7 @@ Test implementation of RESTful API with Dropwizard.
 ## Build
 
     $ mvn package
-    $ java -jar target/dropwizardtest-0.0.1.jar server dropwizardtest.json
+    $ java -jar target/dropwizardtest-0.0.1.jar server dropwizardtest.yaml
 
 
 ## REST Api
