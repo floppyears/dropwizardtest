@@ -63,3 +63,7 @@ Trigger JVM garbage collection:
     Content-Length: 58
     
     {"database":{"healthy":true},"deadlocks":{"healthy":true}}
+
+## Logs
+
+    $ tail logs/dropwizardtest.log | grep ^INFO
