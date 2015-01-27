@@ -17,9 +17,6 @@ import javax.ws.rs.core.Response.Status;
 @Consumes(MediaType.APPLICATION_JSON)
 public class EmployeeResource {
 
-    public EmployeeResource() {
-    }
-
     @GET
     @Path("{id: \\d+}")
     public Employee getById(@PathParam("id") Integer id) {
