@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>dropwizard-test</groupId>
-	<artifactId>dropwizard-test</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>dropwizardtest</groupId>
+	<artifactId>dropwizardtest</artifactId>
+	<version>0.0.1</version>
 	<properties>
 		<dropwizard.version>0.7.1</dropwizard.version>
 	</properties>
@@ -54,7 +54,7 @@
 									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>edu.oregonstate.mist.dropwizardtest.HelloWorldApplication</mainClass>
+									<mainClass>edu.oregonstate.mist.dropwizardtest.DropwizardTestApplication</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
