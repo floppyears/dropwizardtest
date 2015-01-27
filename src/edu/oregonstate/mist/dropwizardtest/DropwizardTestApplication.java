@@ -5,7 +5,7 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
 import edu.oregonstate.mist.dropwizardtest.resources.EmployeeResource;
-import edu.oregonstate.mist.dropwizardtest.health.TemplateHealthCheck;
+import edu.oregonstate.mist.dropwizardtest.health.*;
 
 public class DropwizardTestApplication extends Application<DropwizardTestApplicationConfiguration> {
 
@@ -28,9 +28,7 @@ public class DropwizardTestApplication extends Application<DropwizardTestApplica
     @Override
     public void run(DropwizardTestApplicationConfiguration configuration, Environment environment) {
         final EmployeeResource resource = new EmployeeResource();
-        //final TemplateHealthCheck healthCheck = new TemplateHealthCheck(configuration.getTemplate());
-
-        //environment.healthChecks().register("template", healthCheck);
+        environment.healthChecks().register("database", new DatabaseHealthCheck(database));
         environment.jersey().register(resource);
     }
 }
