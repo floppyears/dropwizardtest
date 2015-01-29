@@ -22,7 +22,7 @@ Test implementation of RESTful API with Dropwizard.
     
     {"id":1,"osuId":"123456789","lastName":"Doe","firstName":"John","middleInitial":"A","onidLoginId":"dojo","emailAddress":"dojo@onid.orst.edu","employeeStatus":"A"}
 
-## POST
+### POST
 
     $ curl --include --request POST --header "Content-Type: application/json" --data "{\"foo\":\"bar\"}"  --write-out "\n" localhost:8080/api/v1/employee/4
     HTTP/1.1 200 OK
