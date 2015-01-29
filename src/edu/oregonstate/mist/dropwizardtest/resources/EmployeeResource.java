@@ -14,12 +14,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.Timed;
+
 @Path("employee")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class EmployeeResource {
 
     @GET
+    @Timed
     @Path("{id: \\d+}")
     public Employee getById(@PathParam("id") Integer id) {
         final Employee employee = DropwizardTestApplication.database.getEmployeeById(id);
@@ -32,6 +36,7 @@ public class EmployeeResource {
     }
 
     @POST
+    @Metered
     @Path("{id: \\d+}")
     public Response setById(@PathParam("id") Integer id, String requestBody) {
         return Response.ok(requestBody).build();
