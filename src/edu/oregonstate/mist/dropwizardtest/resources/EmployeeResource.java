@@ -1,5 +1,7 @@
 package edu.oregonstate.mist.dropwizardtest.resources;
 
+import io.dropwizard.auth.Auth;
+import edu.oregonstate.mist.dropwizardtest.auth.AuthenticatedUser;
 import edu.oregonstate.mist.dropwizardtest.core.Employee;
 import edu.oregonstate.mist.dropwizardtest.*;
 
@@ -40,5 +42,18 @@ public class EmployeeResource {
     @Path("{id: \\d+}")
     public Response setById(@PathParam("id") Integer id, String requestBody) {
         return Response.ok(requestBody).build();
+    }
+
+    @GET
+    @Path("{id: \\d+}/OnidLoginId")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getOnidLoginIdById(@PathParam("id") Integer id, @Auth AuthenticatedUser user) {
+        final Employee employee = DropwizardTestApplication.database.getEmployeeById(id);
+
+        if (employee == null) {
+            throw new WebApplicationException(Status.NOT_FOUND);
+        } else {
+            return employee.getOnidLoginId();
+        }
     }
 }

@@ -32,6 +32,41 @@ Test implementation of RESTful API with Dropwizard.
     
     {"foo":"bar"}
 
+### GET with Authentication
+
+No credentials:
+
+    $ curl --include --request GET --write-out "\n" localhost:8080/api/v1/employee/1/OnidLoginId
+    HTTP/1.1 401 Unauthorized
+    Date: Thu, 29 Jan 2015 21:07:06 GMT
+    WWW-Authenticate: Basic realm="DropwizardTestApplication"
+    Content-Type: text/plain
+    Transfer-Encoding: chunked
+    
+    Credentials are required to access this resource.
+
+Incorrect credentials:
+
+    $ curl --include --request GET -u username:incorrectpassword --write-out "\n" localhost:8080/api/v1/employee/1/OnidLoginId
+    HTTP/1.1 401 Unauthorized
+    Date: Thu, 29 Jan 2015 21:07:16 GMT
+    WWW-Authenticate: Basic realm="DropwizardTestApplication"
+    Content-Type: text/plain
+    Transfer-Encoding: chunked
+    
+    Credentials are required to access this resource.
+
+Correct credentials:
+
+    $ curl --include --request GET -u username:password --write-out "\n" localhost:8080/api/v1/employee/1/OnidLoginId
+    HTTP/1.1 200 OK
+    Date: Thu, 29 Jan 2015 21:07:21 GMT
+    Content-Type: text/plain
+    Vary: Accept-Encoding
+    Transfer-Encoding: chunked
+    
+    dojo
+
 
 ## Tasks
 
