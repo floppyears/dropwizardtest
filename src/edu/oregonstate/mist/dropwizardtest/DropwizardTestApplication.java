@@ -29,6 +29,7 @@ public class DropwizardTestApplication extends Application<DropwizardTestApplica
     public void run(DropwizardTestApplicationConfiguration configuration, Environment environment) {
         final EmployeeResource resource = new EmployeeResource();
         environment.healthChecks().register("database", new DatabaseHealthCheck(database));
+        environment.jersey().setUrlPattern("/api/v1/*");
         environment.jersey().register(resource);
     }
 }
