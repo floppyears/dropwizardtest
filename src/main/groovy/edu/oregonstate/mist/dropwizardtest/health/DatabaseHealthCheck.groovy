@@ -1,6 +1,7 @@
 package edu.oregonstate.mist.dropwizardtest.health;
 
 import com.codahale.metrics.health.HealthCheck;
+import static com.codahale.metrics.health.HealthCheck.Result
 
 import edu.oregonstate.mist.dropwizardtest.DropwizardTestDatabase;
 
