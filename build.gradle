@@ -85,7 +85,7 @@ import com.github.jengelman.gradle.plugins.shadow.transformers.ManifestResourceT
 import com.github.jengelman.gradle.plugins.shadow.transformers.ServiceFileTransformer
 
 shadow {
-    baseName 'dropwizard-groovy-test'
+    baseName "${project.baseName}"
     artifactAttached false
     destinationDir "${project.buildDir}/distributions"
 
