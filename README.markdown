@@ -3,10 +3,15 @@
 Test implementation of RESTful API with Dropwizard.
 
 
+## Test
+
+    $ gradle test
+
+
 ## Build
 
-    $ mvn package
-    $ java -jar target/dropwizardtest-0.0.1.jar server dropwizardtest.yaml
+    $ gradle shadowJar
+    $ java -jar build/distributions/dropwizardtest-0.1.jar server dropwizardtest.yaml
 
 
 ## REST Api
