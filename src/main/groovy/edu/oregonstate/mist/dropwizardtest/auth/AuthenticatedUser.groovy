@@ -1,4 +1,4 @@
-package edu.oregonstate.mist.dropwizardtest.auth;
+package edu.oregonstate.mist.dropwizardtest.auth
 
 public class AuthenticatedUser {
 

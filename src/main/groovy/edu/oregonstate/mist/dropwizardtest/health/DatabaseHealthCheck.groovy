@@ -1,23 +1,22 @@
-package edu.oregonstate.mist.dropwizardtest.health;
+package edu.oregonstate.mist.dropwizardtest.health
 
-import com.codahale.metrics.health.HealthCheck;
+import com.codahale.metrics.health.HealthCheck
 import static com.codahale.metrics.health.HealthCheck.Result
 
-import edu.oregonstate.mist.dropwizardtest.DropwizardTestDatabase;
+import edu.oregonstate.mist.dropwizardtest.DropwizardTestDatabase
 
 public class DatabaseHealthCheck extends HealthCheck {
-    private final DropwizardTestDatabase database;
+    private final DropwizardTestDatabase database
 
     public DatabaseHealthCheck(DropwizardTestDatabase database) {
-        this.database = database;
+        this.database = database
     }
 
     @Override
     protected Result check() throws Exception {
         if (database == null) {
-            return Result.unhealthy("Database is null!");
-        } else {
-            return Result.healthy();
+            return Result.unhealthy('Database is null!')
         }
+        return Result.healthy()
     }
 }

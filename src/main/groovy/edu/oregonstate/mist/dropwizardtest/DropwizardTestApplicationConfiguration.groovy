@@ -1,6 +1,6 @@
-package edu.oregonstate.mist.dropwizardtest;
+package edu.oregonstate.mist.dropwizardtest
 
-import io.dropwizard.Configuration;
+import io.dropwizard.Configuration
 
 public class DropwizardTestApplicationConfiguration extends Configuration {
 }
