@@ -1,5 +1,6 @@
 package edu.oregonstate.mist.dropwizardtest.db
 
+import com.google.common.base.Optional
 import edu.oregonstate.mist.dropwizardtest.core.Employee
 import io.dropwizard.hibernate.AbstractDAO
 import org.hibernate.SessionFactory
@@ -9,8 +10,8 @@ class EmployeeDAO extends AbstractDAO<Employee> {
         super(factory)
     }
 
-    public Employee findById(Long id) {
-        return get(id)
+    public Optional<Employee> findById(Long id) {
+        return Optional.fromNullable(get(id))
     }
 
     public long create(Employee employee) {

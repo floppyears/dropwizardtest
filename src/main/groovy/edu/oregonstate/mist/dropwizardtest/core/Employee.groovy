@@ -1,14 +1,43 @@
 package edu.oregonstate.mist.dropwizardtest.core
 
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.Table
+import javax.persistence.Column
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+
+@Entity
+@Table(name='PYVPASE')
 public class Employee {
-    private final Integer id
+    @Id
+    @Column(name='PYVPASE_PIDM')
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private final Long id
+
+    @Column(name='PYVPASE_ID')
     private String osuId
+
+    @Column(name='PYVPASE_LAST_NAME')
     private String lastName
+
+    @Column(name='PYVPASE_FIRST_NAME')
     private String firstName
+
+    @Column(name='PYVPASE_MI')
     private String middleInitial
+
+    @Column(name='PYVPASE_ONID_LOGIN')
     private String onidLoginId
+
+    @Column(name='PYVPASE_EMAIL')
     private String emailAddress
+
+    @Column(name='PYVPASE_EMPL_STATUS')
     private String employeeStatus
+
+    public Employee() {
+    }
 
     /**
      * Employee Constructor
