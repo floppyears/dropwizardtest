@@ -12,7 +12,6 @@ import javax.persistence.GenerationType
 public class Employee {
     @Id
     @Column(name='PYVPASE_PIDM')
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id
 
     @Column(name='PYVPASE_ID')

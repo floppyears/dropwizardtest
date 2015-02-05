@@ -55,6 +55,12 @@ public class EmployeeResource {
         return Response.ok(requestBody).build()
     }
 
+    @POST
+    @UnitOfWork
+    public Employee setEmployee(Employee employee) {
+        return employeeDAO.set(employee)
+    }
+
     @GET
     @Path('{id: \\d+}/OnidLoginId')
     @Produces(MediaType.TEXT_PLAIN)

@@ -14,8 +14,8 @@ class EmployeeDAO extends AbstractDAO<Employee> {
         return Optional.fromNullable(get(id))
     }
 
-    public long create(Employee employee) {
-        return persist(employee).id
+    public Employee set(Employee employee) {
+        return persist(employee)
     }
 
     public List<Employee> findAll() {
