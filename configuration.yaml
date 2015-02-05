@@ -4,9 +4,11 @@ server:
           port: 8080
           bindHost: localhost
 logging:
+    loggers:
+          org.hibernate.SQL: ALL
     appenders:
         - type: console
-          threshold: INFO
+          threshold: DEBUG
           target: stdout
         - type: file
           currentLogFilename: logs/dropwizardtest.log
