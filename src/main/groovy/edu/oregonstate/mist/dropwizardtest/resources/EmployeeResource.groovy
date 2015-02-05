@@ -63,6 +63,14 @@ public class EmployeeResource {
     @GET
     @Path('{id: \\d+}/OnidLoginId')
     @Produces(MediaType.TEXT_PLAIN)
-    public String getOnidLoginIdById(@PathParam('id') Integer id, @Auth AuthenticatedUser user) {
+    @UnitOfWork
+    public String getOnidLoginIdById(@PathParam('id') LongParam id, @Auth AuthenticatedUser user) {
+        final Optional<Employee> employee = employeeDAO.findById(id.get())
+
+        if (employee.isPresent()) {
+            return employee.get().onidLoginId
+        } else {
+            throw new WebApplicationException(Response.Status.NOT_FOUND)
+        }
     }
 }
