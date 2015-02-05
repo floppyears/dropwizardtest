@@ -10,67 +10,97 @@ Test implementation of RESTful API with Dropwizard.
 
 ## Build
 
+Define database connection and add it to configuration:
+
+    $ cat credentials.yaml >> configuration.yaml
+
+Compile application into single Java archive:
+
     $ gradle shadowJar
-    $ java -jar build/distributions/dropwizardtest-0.1.jar server dropwizardtest.yaml
+
+Run application:
+
+    $ java -classpath bin/ojdbc6_g.jar:build/distributions/dropwizardtest-0.1.jar \
+           edu.oregonstate.mist.dropwizardtest.DropwizardTestApplication \
+           server configuration.yaml
 
 
 ## REST Api
 
 ### GET
 
-    $ curl --include localhost:8080/api/v1/employee/1
+Employee exists:
+
+    $ curl --include \
+           --request GET \
+           --write-out "\n" \
+           localhost:8080/api/v1/employee/25
     HTTP/1.1 200 OK
-    Date: Tue, 27 Jan 2015 18:17:32 GMT
+    Date: Thu, 05 Feb 2015 18:38:57 GMT
     Content-Type: application/json
     Vary: Accept-Encoding
     Transfer-Encoding: chunked
     
-    {"id":1,"osuId":"123456789","lastName":"Doe","firstName":"John","middleInitial":"A","onidLoginId":"dojo","emailAddress":"dojo@onid.orst.edu","employeeStatus":"A"}
+    {"id":25,"osuId":"830226005","lastName":"Mustard HR-OSCAR","firstName":"Colonel","middleInitial":null,"onidLoginId":"whiteja","emailAddress":"cedenoj@onid.oregonstate.edu","employeeStatus":"A"}
+
+Employee does not exist:
+
+    $ curl --include \
+           --request GET \
+           --write-out "\n" \
+           localhost:8080/api/v1/employee/101
+    HTTP/1.1 404 Not Found
+    Date: Thu, 05 Feb 2015 18:39:05 GMT
+    Content-Length: 0
 
 ### POST
 
-    $ curl --include --request POST --header "Content-Type: application/json" --data "{\"foo\":\"bar\"}"  --write-out "\n" localhost:8080/api/v1/employee/4
+Create or update employee with specified id:
+
+    $ curl --include \
+           --request POST \
+           --header "Content-Type: application/json" \
+           --data '{"id":111,"osuId":"123571113","lastName":"Bar","middleInitial":"W","firstName":"Foo","onidLoginId":"foobar","emailAddress":"foobar@example.com","employeeStatus":"A"}' \
+           --write-out "\n" \
+           localhost:8080/api/v1/employee
     HTTP/1.1 200 OK
-    Date: Tue, 27 Jan 2015 19:35:24 GMT
+    Date: Thu, 05 Feb 2015 22:24:27 GMT
     Content-Type: application/json
     Transfer-Encoding: chunked
     
-    {"foo":"bar"}
+    {"id":111,"osuId":"123571113","lastName":"Bar","firstName":"Foo","middleInitial":"W","onidLoginId":"foobar","emailAddress":"foobar@example.com","employeeStatus":"A"}
 
 ### GET with Authentication
 
-No credentials:
+User is authenticated:
 
-    $ curl --include --request GET --write-out "\n" localhost:8080/api/v1/employee/1/OnidLoginId
-    HTTP/1.1 401 Unauthorized
-    Date: Thu, 29 Jan 2015 21:07:06 GMT
-    WWW-Authenticate: Basic realm="DropwizardTestApplication"
-    Content-Type: text/plain
-    Transfer-Encoding: chunked
-    
-    Credentials are required to access this resource.
-
-Incorrect credentials:
-
-    $ curl --include --request GET -u username:incorrectpassword --write-out "\n" localhost:8080/api/v1/employee/1/OnidLoginId
-    HTTP/1.1 401 Unauthorized
-    Date: Thu, 29 Jan 2015 21:07:16 GMT
-    WWW-Authenticate: Basic realm="DropwizardTestApplication"
-    Content-Type: text/plain
-    Transfer-Encoding: chunked
-    
-    Credentials are required to access this resource.
-
-Correct credentials:
-
-    $ curl --include --request GET -u username:password --write-out "\n" localhost:8080/api/v1/employee/1/OnidLoginId
+    $ curl --include \
+           --request GET \
+           --user username:password \
+           --write-out "\n" \
+           localhost:8080/api/v1/employee/25/OnidLoginId
     HTTP/1.1 200 OK
-    Date: Thu, 29 Jan 2015 21:07:21 GMT
+    Date: Thu, 05 Feb 2015 18:49:28 GMT
     Content-Type: text/plain
     Vary: Accept-Encoding
     Transfer-Encoding: chunked
     
-    dojo
+    whiteja
+
+User is not authenticated:
+
+    $ curl --include \
+           --request GET \
+           --user username:incorrectpassword \
+           --write-out "\n" \
+           localhost:8080/api/v1/employee/25/OnidLoginId
+    HTTP/1.1 401 Unauthorized
+    Date: Thu, 05 Feb 2015 18:49:51 GMT
+    WWW-Authenticate: Basic realm="DropwizardTestApplication"
+    Content-Type: text/plain
+    Transfer-Encoding: chunked
+    
+    Credentials are required to access this resource.
 
 
 ## Tasks
