@@ -40,11 +40,11 @@ public class EmployeeResource {
     public Employee getById(@PathParam('id') LongParam id) {
         final Optional<Employee> employee = employeeDAO.findById(id.get())
 
-        if (employee.isPresent()) {
-            return employee.get()
-        } else {
+        if (!employee.isPresent()) {
             throw new WebApplicationException(Response.Status.NOT_FOUND)
         }
+
+        return employee.get()
     }
 
     @POST
@@ -67,10 +67,10 @@ public class EmployeeResource {
     public String getOnidLoginIdById(@PathParam('id') LongParam id, @Auth AuthenticatedUser user) {
         final Optional<Employee> employee = employeeDAO.findById(id.get())
 
-        if (employee.isPresent()) {
-            return employee.get().onidLoginId
-        } else {
+        if (!employee.isPresent()) {
             throw new WebApplicationException(Response.Status.NOT_FOUND)
         }
+
+        return employee.get().onidLoginId
     }
 }
