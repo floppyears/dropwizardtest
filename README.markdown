@@ -10,8 +10,11 @@ Test implementation of RESTful API with Dropwizard.
 
 ## Build
 
+    $ cat credentials.yaml >> configuration.yaml
     $ gradle shadowJar
-    $ java -jar build/distributions/dropwizardtest-0.1.jar server dropwizardtest.yaml
+    $ java -classpath bin/ojdbc6_g.jar:build/distributions/dropwizardtest-0.1.jar \
+           edu.oregonstate.mist.dropwizardtest.DropwizardTestApplication \
+           server configuration.yaml
 
 
 ## REST Api
