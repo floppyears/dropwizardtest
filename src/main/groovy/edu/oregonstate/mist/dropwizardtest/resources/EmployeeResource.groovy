@@ -17,7 +17,6 @@ import javax.ws.rs.Consumes
 import javax.ws.rs.WebApplicationException
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
-//import javax.ws.rs.core.Response.Status
 
 import com.codahale.metrics.annotation.Metered
 import com.codahale.metrics.annotation.Timed
