@@ -28,13 +28,6 @@ public class EmployeeResource {
     @Timed
     @Path('{id: \\d+}')
     public Employee getById(@PathParam('id') Integer id) {
-        final Employee EMPLOYEE = DropwizardTestApplication.database.getEmployeeById(id)
-
-        if (EMPLOYEE == null) {
-            throw new WebApplicationException(Status.NOT_FOUND)
-        } else {
-            return EMPLOYEE
-        }
     }
 
     @POST
@@ -48,12 +41,5 @@ public class EmployeeResource {
     @Path('{id: \\d+}/OnidLoginId')
     @Produces(MediaType.TEXT_PLAIN)
     public String getOnidLoginIdById(@PathParam('id') Integer id, @Auth AuthenticatedUser user) {
-        final Employee EMPLOYEE = DropwizardTestApplication.database.getEmployeeById(id)
-
-        if (EMPLOYEE == null) {
-            throw new WebApplicationException(Status.NOT_FOUND)
-        } else {
-            return EMPLOYEE.onidLoginId
-        }
     }
 }
