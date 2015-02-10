@@ -21,6 +21,7 @@ import javax.ws.rs.core.Response
 import com.codahale.metrics.annotation.Metered
 import com.codahale.metrics.annotation.Timed
 import com.google.common.base.Optional
+import javax.validation.Valid
 
 @Path('employee')
 @Produces(MediaType.APPLICATION_JSON)
@@ -56,7 +57,7 @@ public class EmployeeResource {
 
     @POST
     @UnitOfWork
-    public Employee setEmployee(Employee employee) {
+    public Employee setEmployee(@Valid Employee employee) {
         return employeeDAO.set(employee)
     }
 

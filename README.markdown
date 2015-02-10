@@ -70,6 +70,22 @@ Create or update employee with specified id:
     
     {"id":111,"osuId":"123571113","lastName":"Bar","firstName":"Foo","middleInitial":"W","onidLoginId":"foobar","emailAddress":"foobar@example.com","employeeStatus":"A"}
 
+Invalid data:
+
+    $ curl --include \
+           --request POST \
+           --header "Content-Type: application/json" \
+           --data '{"id":111,"osuId":"","lastName":"","middleInitial":"T","firstName":"Foo","onidLoginId":"foobar","emailAddress":"foobaratexampledotnet","employeeStatus":""}' \
+           --write-out "\n" \
+           localhost:8080/api/v1/employee
+    HTTP/1.1 422
+    Date: Tue, 10 Feb 2015 00:42:19 GMT
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    
+    {"errors":["emailAddress not a well-formed email address (was foobaratexampledotnet)","employeeStatus may not be empty (was )","lastName may not be empty (was )","osuId may not be empty (was )"]}
+
+
 ### GET with Authentication
 
 User is authenticated:

@@ -5,6 +5,9 @@ import javax.persistence.Id
 import javax.persistence.Table
 import javax.persistence.Column
 
+import org.hibernate.validator.constraints.NotEmpty
+import org.hibernate.validator.constraints.Email
+
 @Entity
 @Table(name='PYVPASE')
 public class Employee {
@@ -13,9 +16,11 @@ public class Employee {
     private final Long id
 
     @Column(name='PYVPASE_ID')
+    @NotEmpty
     private String osuId
 
     @Column(name='PYVPASE_LAST_NAME')
+    @NotEmpty
     private String lastName
 
     @Column(name='PYVPASE_FIRST_NAME')
@@ -28,9 +33,11 @@ public class Employee {
     private String onidLoginId
 
     @Column(name='PYVPASE_EMAIL')
+    @Email
     private String emailAddress
 
     @Column(name='PYVPASE_EMPL_STATUS')
+    @NotEmpty
     private String employeeStatus
 
     public Employee() {
