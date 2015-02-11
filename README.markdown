@@ -53,12 +53,12 @@ Employee does not exist:
     Date: Thu, 05 Feb 2015 18:39:05 GMT
     Content-Length: 0
 
-### POST
+### PUT
 
 Create or update employee with specified id:
 
     $ curl --include \
-           --request POST \
+           --request PUT \
            --header "Content-Type: application/json" \
            --data '{"id":111,"osuId":"123571113","lastName":"Bar","middleInitial":"W","firstName":"Foo","onidLoginId":"foobar","emailAddress":"foobar@example.com","employeeStatus":"A"}' \
            --write-out "\n" \
@@ -73,7 +73,7 @@ Create or update employee with specified id:
 Invalid data:
 
     $ curl --include \
-           --request POST \
+           --request PUT \
            --header "Content-Type: application/json" \
            --data '{"id":111,"osuId":"","lastName":"","middleInitial":"T","firstName":"Foo","onidLoginId":"foobar","emailAddress":"foobaratexampledotnet","employeeStatus":""}' \
            --write-out "\n" \

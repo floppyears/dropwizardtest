@@ -10,6 +10,7 @@ import edu.oregonstate.mist.dropwizardtest.db.EmployeeDAO
 
 import javax.ws.rs.GET
 import javax.ws.rs.POST
+import javax.ws.rs.PUT
 import javax.ws.rs.Path
 import javax.ws.rs.PathParam
 import javax.ws.rs.Produces
@@ -55,7 +56,7 @@ public class EmployeeResource {
         return Response.ok(requestBody).build()
     }
 
-    @POST
+    @PUT
     @UnitOfWork
     public Employee setEmployee(@Valid Employee employee) {
         return employeeDAO.set(employee)
