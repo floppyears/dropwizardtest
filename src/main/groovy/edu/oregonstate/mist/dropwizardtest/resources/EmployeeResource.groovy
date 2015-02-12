@@ -41,6 +41,12 @@ public class EmployeeResource {
         return ['OPTIONS', 'PUT']
     }
 
+    @PUT
+    @UnitOfWork
+    public Employee setEmployee(@Valid Employee employee) {
+        return employeeDAO.set(employee)
+    }
+
     @OPTIONS
     @Path('{id: \\d+}')
     public List optionsById() {
@@ -66,12 +72,6 @@ public class EmployeeResource {
     @Path('{id: \\d+}')
     public Response setById(@PathParam('id') Integer id, String requestBody) {
         return Response.ok(requestBody).build()
-    }
-
-    @PUT
-    @UnitOfWork
-    public Employee setEmployee(@Valid Employee employee) {
-        return employeeDAO.set(employee)
     }
 
     @OPTIONS
