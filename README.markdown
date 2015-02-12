@@ -27,118 +27,262 @@ Run application:
 
 ## REST Api
 
+The following HTTP requests were performed with telnet:
+
+    $ telnet localhost 8080
+    Trying ::1...
+    telnet: connect to address ::1: Connection refused
+    Trying 127.0.0.1...
+    Connected to localhost.
+    Escape character is '^]'.
+    
+
+### OPTIONS
+
+/api/v1/employee:
+
+    OPTIONS /api/v1/employee HTTP/1.1
+    Host: localhost:8080
+    
+    HTTP/1.1 200 OK
+    Date: Wed, 11 Feb 2015 23:32:07 GMT
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    
+    11
+    ["OPTIONS","PUT"]
+    0
+
+/api/v1/employee/1:
+
+    OPTIONS /api/v1/employee/1 HTTP/1.1
+    Host: localhost:8080
+    
+    HTTP/1.1 200 OK
+    Date: Wed, 11 Feb 2015 23:32:30 GMT
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    
+    11
+    ["OPTIONS","GET"]
+    0
+
+/api/v1/employee/1/OnidLoginId:
+
+    OPTIONS /api/v1/employee/1/OnidLoginId HTTP/1.1
+    Host: localhost:8080
+    
+    HTTP/1.1 200 OK
+    Date: Wed, 11 Feb 2015 23:32:57 GMT
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    
+    11
+    ["OPTIONS","GET"]
+    0
+
 ### GET
 
 Employee exists:
 
-    $ curl --include \
-           --request GET \
-           --write-out "\n" \
-           localhost:8080/api/v1/employee/25
+    GET /api/v1/employee/25 HTTP/1.1
+    Host: localhost:8080
+    
     HTTP/1.1 200 OK
-    Date: Thu, 05 Feb 2015 18:38:57 GMT
+    Date: Wed, 11 Feb 2015 23:37:36 GMT
     Content-Type: application/json
     Vary: Accept-Encoding
     Transfer-Encoding: chunked
     
+    C1
     {"id":25,"osuId":"830226005","lastName":"Mustard HR-OSCAR","firstName":"Colonel","middleInitial":null,"onidLoginId":"whiteja","emailAddress":"cedenoj@onid.oregonstate.edu","employeeStatus":"A"}
+    0
 
 Employee does not exist:
 
-    $ curl --include \
-           --request GET \
-           --write-out "\n" \
-           localhost:8080/api/v1/employee/101
+    GET /api/v1/employee/101 HTTP/1.1
+    Host: localhost:8080
+    
     HTTP/1.1 404 Not Found
-    Date: Thu, 05 Feb 2015 18:39:05 GMT
+    Date: Wed, 11 Feb 2015 23:38:57 GMT
     Content-Length: 0
 
 ### PUT
 
 Create or update employee with specified id:
 
-    $ curl --include \
-           --request PUT \
-           --header "Content-Type: application/json" \
-           --data '{"id":111,"osuId":"123571113","lastName":"Bar","middleInitial":"W","firstName":"Foo","onidLoginId":"foobar","emailAddress":"foobar@example.com","employeeStatus":"A"}' \
-           --write-out "\n" \
-           localhost:8080/api/v1/employee
+    $ echo -n '{"id":111,"osuId":"123571113","lastName":"Bar","middleInitial":"W","firstName":"Foo","onidLoginId":"foobar","emailAddress":"foobar@example.com","employeeStatus":"A"}' | wc -c
+         165
+
+
+    PUT /api/v1/employee HTTP/1.1
+    Host: localhost:8080
+    Content-Type: application/json
+    Content-Length: 165
+    
+    {"id":111,"osuId":"123571113","lastName":"Bar","middleInitial":"W","firstName":"Foo","onidLoginId":"foobar","emailAddress":"foobar@example.com","employeeStatus":"A"}
     HTTP/1.1 200 OK
-    Date: Thu, 05 Feb 2015 22:24:27 GMT
+    Date: Thu, 12 Feb 2015 00:04:12 GMT
     Content-Type: application/json
     Transfer-Encoding: chunked
     
+    A5
     {"id":111,"osuId":"123571113","lastName":"Bar","firstName":"Foo","middleInitial":"W","onidLoginId":"foobar","emailAddress":"foobar@example.com","employeeStatus":"A"}
+    0
 
 Invalid data:
 
-    $ curl --include \
-           --request PUT \
-           --header "Content-Type: application/json" \
-           --data '{"id":111,"osuId":"","lastName":"","middleInitial":"T","firstName":"Foo","onidLoginId":"foobar","emailAddress":"foobaratexampledotnet","employeeStatus":""}' \
-           --write-out "\n" \
-           localhost:8080/api/v1/employee
+    $ echo -n '{"id":111,"osuId":"","lastName":"","middleInitial":"T","firstName":"Foo","onidLoginId":"foobar","emailAddress":"foobaratexampledotnet","employeeStatus":""}' | wc -c
+         155
+
+
+    PUT /api/v1/employee HTTP/1.1
+    Host: localhost:8080
+    Content-Type: application/json
+    Content-Length: 155
+    
+    {"id":111,"osuId":"","lastName":"","middleInitial":"T","firstName":"Foo","onidLoginId":"foobar","emailAddress":"foobaratexampledotnet","employeeStatus":""}
     HTTP/1.1 422
-    Date: Tue, 10 Feb 2015 00:42:19 GMT
+    Date: Thu, 12 Feb 2015 00:01:50 GMT
     Content-Type: application/json
     Transfer-Encoding: chunked
     
+    C3
     {"errors":["emailAddress not a well-formed email address (was foobaratexampledotnet)","employeeStatus may not be empty (was )","lastName may not be empty (was )","osuId may not be empty (was )"]}
-
+    0
 
 ### GET with Authentication
 
 User is authenticated:
 
-    $ curl --include \
-           --request GET \
-           --user username:password \
-           --write-out "\n" \
-           localhost:8080/api/v1/employee/25/OnidLoginId
+    $ echo -n "username:password" | base64
+    dXNlcm5hbWU6cGFzc3dvcmQ=
+
+
+    GET /api/v1/employee/25/OnidLoginId HTTP/1.1
+    Host: localhost:8080
+    Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=
+    
     HTTP/1.1 200 OK
-    Date: Thu, 05 Feb 2015 18:49:28 GMT
+    Date: Wed, 11 Feb 2015 23:49:56 GMT
     Content-Type: text/plain
     Vary: Accept-Encoding
     Transfer-Encoding: chunked
     
+    7
     whiteja
+    0
 
 User is not authenticated:
 
-    $ curl --include \
-           --request GET \
-           --user username:incorrectpassword \
-           --write-out "\n" \
-           localhost:8080/api/v1/employee/25/OnidLoginId
+    $ echo -n "username:incorrectpassword" | base64
+    dXNlcm5hbWU6aW5jb3JyZWN0cGFzc3dvcmQ=
+
+
+    GET /api/v1/employee/25/OnidLoginId HTTP/1.1
+    Host: localhost:8080
+    Authorization: dXNlcm5hbWU6aW5jb3JyZWN0cGFzc3dvcmQ=
+    
     HTTP/1.1 401 Unauthorized
-    Date: Thu, 05 Feb 2015 18:49:51 GMT
+    Date: Wed, 11 Feb 2015 23:52:27 GMT
     WWW-Authenticate: Basic realm="DropwizardTestApplication"
     Content-Type: text/plain
     Transfer-Encoding: chunked
     
+    31
     Credentials are required to access this resource.
-
+    0
 
 ## Tasks
 
 Trigger JVM garbage collection:
 
-    $ curl --request POST localhost:8081/tasks/gc
+    POST /tasks/gc HTTP/1.1
+    Host: localhost:8081
+    
+    HTTP/1.1 200 OK
+    Date: Wed, 11 Feb 2015 23:42:55 GMT
+    Content-Type: text/plain; charset=UTF-8
+    Transfer-Encoding: chunked
+    
+    E
     Running GC...
+    
+    6
     Done!
-
+    
+    0
 
 ## Operational Menu
 
 ### Metrics
 
-    $ curl --include localhost:8081/metrics?pretty=true
+    GET /metrics?pretty=true HTTP/1.1
+    Host: localhost:8081
+    
+    HTTP/1.1 200 OK
+    Date: Thu, 12 Feb 2015 00:08:34 GMT
+    Content-Type: application/json
+    Cache-Control: must-revalidate,no-cache,no-store
+    Transfer-Encoding: chunked
+    
+    63
+    {
+      "version" : "3.0.0",
+      "gauges" : {
+        "jvm.buffers.direct.capacity" : {
+          "value" : 66004
+
+...
+
+    3F
+    
+        },
+        "jvm.memory.heap.used" : {
+          "value" : 56126296
+
+...
+
+    36
+    
+        },
+        "jvm.threads.count" : {
+          "value" : 27
+
+...
+
+    209E
+    ,
+      "timers" : {
+        "edu.oregonstate.mist.dropwizardtest.resources.EmployeeResource.getById" : {
+          "count" : 3,
+          "max" : 0.24506100000000003,
+          "mean" : 0.08771366666666668,
+          "min" : 0.00263,
+          "p50" : 0.01545,
+          "p75" : 0.24506100000000003,
+          "p95" : 0.24506100000000003,
+          "p98" : 0.24506100000000003,
+          "p99" : 0.24506100000000003,
+          "p999" : 0.24506100000000003,
+          "stddev" : 0.1364174680176015,
+          "m15_rate" : 0.0011502901446789392,
+          "m1_rate" : 3.1834063780301826E-4,
+          "m5_rate" : 0.0015263061126552307,
+          "mean_rate" : 0.001327797565293289,
+          "duration_units" : "seconds",
+          "rate_units" : "calls/second"
+        },
+
+...
     
 ### Ping
 
-    $ curl --include localhost:8081/ping
+    GET /ping HTTP/1.1
+    Host: localhost:8081
+    
     HTTP/1.1 200 OK
-    Date: Tue, 27 Jan 2015 18:14:53 GMT
+    Date: Wed, 11 Feb 2015 23:44:20 GMT
     Cache-Control: must-revalidate,no-cache,no-store
     Content-Type: text/plain; charset=ISO-8859-1
     Content-Length: 5
@@ -147,18 +291,88 @@ Trigger JVM garbage collection:
 
 ### Threads
 
-    $ curl --include http://localhost:8081/threads
+    GET /threads HTTP/1.1
+    Host: localhost:8081
+    
+    HTTP/1.1 200 OK
+    Date: Thu, 12 Feb 2015 00:16:42 GMT
+    Content-Type: text/plain
+    Cache-Control: must-revalidate,no-cache,no-store
+    Transfer-Encoding: chunked
+    
+    53A4
+    Reference Handler id=2 state=WAITING
+        - waiting on <0x05cf7ac3> (a java.lang.ref.Reference$Lock)
+        - locked <0x05cf7ac3> (a java.lang.ref.Reference$Lock)
+        at java.lang.Object.wait(Native Method)
+        at java.lang.Object.wait(Object.java:503)
+        at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:133)
+    
+    Finalizer id=3 state=WAITING
+        - waiting on <0x09c96812> (a java.lang.ref.ReferenceQueue$Lock)
+        - locked <0x09c96812> (a java.lang.ref.ReferenceQueue$Lock)
+        at java.lang.Object.wait(Native Method)
+        at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:135)
+        at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:151)
+        at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:189)
+    
+    Signal Dispatcher id=4 state=RUNNABLE
+    
+    async-console-appender-1 id=9 state=TIMED_WAITING
+        - waiting on <0x35a594c2> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        - locked <0x35a594c2> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+
+...
+
+    dw-admin-64 id=64 state=RUNNABLE
+        at sun.management.ThreadImpl.dumpThreads0(Native Method)
+        at sun.management.ThreadImpl.dumpAllThreads(ThreadImpl.java:446)
+        at com.codahale.metrics.jvm.ThreadDump.dump(ThreadDump.java:30)
+        at com.codahale.metrics.servlets.ThreadDumpServlet.doGet(ThreadDumpServlet.java:36)
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:735)
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:848)
+        at com.codahale.metrics.servlets.AdminServlet.service(AdminServlet.java:100)
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:848)
+        at io.dropwizard.jetty.NonblockingServletHolder.handle(NonblockingServletHolder.java:49)
+        at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1515)
+        at io.dropwizard.jersey.filter.AllowedMethodsFilter.handle(AllowedMethodsFilter.java:44)
+        at io.dropwizard.jersey.filter.AllowedMethodsFilter.doFilter(AllowedMethodsFilter.java:39)
+        at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1486)
+        at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:519)
+        at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1097)
+        at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:448)
+        at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1031)
+        at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:136)
+        at io.dropwizard.jetty.RoutingHandler.handle(RoutingHandler.java:51)
+        at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+        at org.eclipse.jetty.server.handler.RequestLogHandler.handle(RequestLogHandler.java:92)
+        at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+        at org.eclipse.jetty.server.handler.StatisticsHandler.handle(StatisticsHandler.java:162)
+        at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+        at org.eclipse.jetty.server.Server.handle(Server.java:446)
+        at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:271)
+        at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:246)
+        at org.eclipse.jetty.io.AbstractConnection$ReadCallback.run(AbstractConnection.java:358)
+        at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:601)
+        at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:532)
+        at java.lang.Thread.run(Thread.java:744)
+    
+    
+    
+    0
 
 ### Health Check
 
-    $ curl --include localhost:8081/healthcheck
+    GET /healthcheck HTTP/1.1
+    Host: localhost:8081
+    
     HTTP/1.1 200 OK
-    Date: Tue, 27 Jan 2015 18:15:38 GMT
+    Date: Wed, 11 Feb 2015 23:45:18 GMT
     Content-Type: application/json
     Cache-Control: must-revalidate,no-cache,no-store
-    Content-Length: 58
+    Content-Length: 59
     
-    {"database":{"healthy":true},"deadlocks":{"healthy":true}}
+    {"deadlocks":{"healthy":true},"hibernate":{"healthy":true}}
 
 ## Logs
 
