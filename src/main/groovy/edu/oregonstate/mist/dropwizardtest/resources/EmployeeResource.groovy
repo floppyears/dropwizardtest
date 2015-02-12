@@ -67,13 +67,6 @@ public class EmployeeResource {
         return employee.get()
     }
 
-    @POST
-    @Metered
-    @Path('{id: \\d+}')
-    public Response setById(@PathParam('id') Integer id, String requestBody) {
-        return Response.ok(requestBody).build()
-    }
-
     @OPTIONS
     @Path('{id: \\d+}/OnidLoginId')
     public List optionsOnid() {
