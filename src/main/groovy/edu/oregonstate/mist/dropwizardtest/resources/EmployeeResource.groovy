@@ -8,6 +8,7 @@ import edu.oregonstate.mist.dropwizardtest.core.Employee
 import edu.oregonstate.mist.dropwizardtest.*
 import edu.oregonstate.mist.dropwizardtest.db.EmployeeDAO
 
+import javax.ws.rs.OPTIONS
 import javax.ws.rs.GET
 import javax.ws.rs.POST
 import javax.ws.rs.PUT
@@ -35,6 +36,17 @@ public class EmployeeResource {
         this.employeeDAO = employeeDAO
     }
 
+    @OPTIONS
+    public List options() {
+        return ['OPTIONS', 'PUT']
+    }
+
+    @OPTIONS
+    @Path('{id: \\d+}')
+    public List optionsById() {
+        return ['OPTIONS', 'GET']
+    }
+
     @GET
     @Timed
     @Path('{id: \\d+}')
@@ -60,6 +72,12 @@ public class EmployeeResource {
     @UnitOfWork
     public Employee setEmployee(@Valid Employee employee) {
         return employeeDAO.set(employee)
+    }
+
+    @OPTIONS
+    @Path('{id: \\d+}/OnidLoginId')
+    public List optionsOnid() {
+        return ['OPTIONS', 'GET']
     }
 
     @GET
