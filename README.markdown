@@ -111,10 +111,6 @@ Employee does not exist:
 
 Create or update employee with specified id:
 
-    $ echo -n '{"id":111,"osuId":"123571113","lastName":"Bar","middleInitial":"W","firstName":"Foo","onidLoginId":"foobar","emailAddress":"foobar@example.com","employeeStatus":"A"}' | wc -c
-         165
-
-
     PUT /api/v1/employee HTTP/1.1
     Host: localhost:8080
     Content-Type: application/json
@@ -131,10 +127,6 @@ Create or update employee with specified id:
     0
 
 Invalid data:
-
-    $ echo -n '{"id":111,"osuId":"","lastName":"","middleInitial":"T","firstName":"Foo","onidLoginId":"foobar","emailAddress":"foobaratexampledotnet","employeeStatus":""}' | wc -c
-         155
-
 
     PUT /api/v1/employee HTTP/1.1
     Host: localhost:8080
@@ -155,10 +147,6 @@ Invalid data:
 
 User is authenticated:
 
-    $ echo -n "username:password" | base64
-    dXNlcm5hbWU6cGFzc3dvcmQ=
-
-
     GET /api/v1/employee/25/OnidLoginId HTTP/1.1
     Host: localhost:8080
     Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=
@@ -174,10 +162,6 @@ User is authenticated:
     0
 
 User is not authenticated:
-
-    $ echo -n "username:incorrectpassword" | base64
-    dXNlcm5hbWU6aW5jb3JyZWN0cGFzc3dvcmQ=
-
 
     GET /api/v1/employee/25/OnidLoginId HTTP/1.1
     Host: localhost:8080
