@@ -81,6 +81,20 @@ The following HTTP requests were performed with telnet:
     ["OPTIONS","GET"]
     0
 
+/api/v1/job/1:
+
+    OPTIONS /api/v1/job/1 HTTP/1.1
+    Host: localhost:8080
+    
+    HTTP/1.1 200 OK
+    Date: Wed, 18 Feb 2015 22:57:19 GMT
+    Content-Type: application/json
+    Transfer-Encoding: chunked
+    
+    11
+    ["OPTIONS","GET"]
+    0
+
 ### GET
 
 Employee exists:
@@ -105,6 +119,30 @@ Employee does not exist:
     
     HTTP/1.1 404 Not Found
     Date: Wed, 11 Feb 2015 23:38:57 GMT
+    Content-Length: 0
+
+Jobs exist:
+
+    GET /api/v1/job/162 HTTP/1.1
+    Host: localhost:8080
+    
+    HTTP/1.1 200 OK
+    Date: Wed, 18 Feb 2015 22:58:06 GMT
+    Content-Type: application/json
+    Vary: Accept-Encoding
+    Transfer-Encoding: chunked
+    
+    5AB
+    [{"id":162,"positionNumber":"C10210","suffix":"00","status":"T","jobTitle":"Professor","eclsCode":"UA","appointmentType":"Ranked Faculty","beginDate":"1998-07-01","endDate":"2003-06-30","pclsCode":"UC202","salGrade":"S","salStep":0,"orgnCodeTs":"252100","orgnDesc":"SPH - Physics","bctrTitle":"ASBC","supervisorPidm":378,"supervisorPosn":"C10214","supervisorSuff":"00","trialInd":0,"annualInd":0,"evalDate":null,"low":0,"midpoint":0,"high":0,"salary":6661,"sgrpCode":"19978A"},{"id":162,"positionNumber":"C25213","suffix":"00","status":"T","jobTitle":"Academic Wage Appt-Salaried","eclsCode":"UV","appointmentType":"Academic Wage","beginDate":"2003-09-16","endDate":"2010-06-15","pclsCode":"UV901","salGrade":"S","salStep":0,"orgnCodeTs":"252100","orgnDesc":"SPH - Physics","bctrTitle":"ASBC","supervisorPidm":0,"supervisorPosn":null,"supervisorSuff":"00","trialInd":0,"annualInd":0,"evalDate":null,"low":0,"midpoint":0,"high":0,"salary":6256,"sgrpCode":"20034B"},{"id":162,"positionNumber":"C28213","suffix":"00","status":"T","jobTitle":"Summer Session/Non-Teaching","eclsCode":"UV","appointmentType":"Academic Wage","beginDate":"2000-07-01","endDate":"2001-07-31","pclsCode":"UV351","salGrade":"S","salStep":0,"orgnCodeTs":"252100","orgnDesc":"SPH - Physics","bctrTitle":"ASBC","supervisorPidm":0,"supervisorPosn":null,"supervisorSuff":"00","trialInd":0,"annualInd":0,"evalDate":null,"low":0,"midpoint":0,"high":0,"salary":6530,"sgrpCode":"19989B"}]
+    0
+
+Job does not exist:
+
+    GET /api/v1/job/101 HTTP/1.1
+    Host: localhost:8080
+    
+    HTTP/1.1 404 Not Found
+    Date: Wed, 18 Feb 2015 23:00:03 GMT
     Content-Length: 0
 
 ### PUT

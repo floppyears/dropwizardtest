@@ -6,6 +6,8 @@ import io.dropwizard.setup.Bootstrap
 import io.dropwizard.setup.Environment
 import io.dropwizard.hibernate.HibernateBundle
 import io.dropwizard.db.DataSourceFactory
+import io.dropwizard.jdbi.DBIFactory
+import org.skife.jdbi.v2.DBI
 import edu.oregonstate.mist.dropwizardtest.auth.*
 import edu.oregonstate.mist.dropwizardtest.core.*
 import edu.oregonstate.mist.dropwizardtest.db.*
@@ -33,11 +35,14 @@ public class DropwizardTestApplication extends Application<DropwizardTestApplica
 
     @Override
     public void run(DropwizardTestApplicationConfiguration configuration, Environment environment) {
-        final EmployeeDAO dao = new EmployeeDAO(hibernate.sessionFactory)
+        final EmployeeDAO edao = new EmployeeDAO(hibernate.sessionFactory)
+        final DBIFactory factory = new DBIFactory()
+        final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "oracle")
+        final JobDAO jdao = jdbi.onDemand(JobDAO.class)
 
         environment.jersey().setUrlPattern('/api/v1/*')
-        environment.jersey().register(new BasicAuthProvider<AuthenticatedUser>(new SimpleAuthenticator(),
-                                                                               'DropwizardTestApplication'))
-        environment.jersey().register(new EmployeeResource(dao))
+        environment.jersey().register(new BasicAuthProvider<AuthenticatedUser>(new SimpleAuthenticator(),'DropwizardTestApplication'))
+        environment.jersey().register(new EmployeeResource(edao))
+        environment.jersey().register(new JobResource(jdao))
     }
 }
