@@ -10,9 +10,7 @@ Test implementation of RESTful API with Dropwizard.
 
 ## Build
 
-Define database connection and add it to configuration:
-
-    $ cat credentials.yaml >> configuration.yaml
+Define database connection in `configuration.yaml`.
 
 Compile application into single Java archive:
 
