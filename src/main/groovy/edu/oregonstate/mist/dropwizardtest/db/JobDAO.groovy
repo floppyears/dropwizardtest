@@ -8,7 +8,7 @@ import org.skife.jdbi.v2.sqlobject.Bind
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper
 
 @RegisterMapper(JobMapper)
-public interface JobDAO {
+public interface JobDAO extends Closeable {
     @SqlQuery("""
               SELECT *
               FROM PYVPASJ

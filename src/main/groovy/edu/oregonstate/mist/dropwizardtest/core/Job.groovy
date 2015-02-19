@@ -1,4 +1,4 @@
-package edu.oregonstate.mist.dropwizardtest.core;
+package edu.oregonstate.mist.dropwizardtest.core
 
 public class Job {
     Long id
