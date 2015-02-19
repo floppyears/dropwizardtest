@@ -389,12 +389,12 @@ Trigger JVM garbage collection:
     Host: localhost:8081
     
     HTTP/1.1 200 OK
-    Date: Wed, 11 Feb 2015 23:45:18 GMT
+    Date: Thu, 19 Feb 2015 00:52:52 GMT
     Content-Type: application/json
     Cache-Control: must-revalidate,no-cache,no-store
-    Content-Length: 59
+    Content-Length: 85
     
-    {"deadlocks":{"healthy":true},"hibernate":{"healthy":true}}
+    {"deadlocks":{"healthy":true},"hibernate":{"healthy":true},"oracle":{"healthy":true}}
 
 ## Logs
 
