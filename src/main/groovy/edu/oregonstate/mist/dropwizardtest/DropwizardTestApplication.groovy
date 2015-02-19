@@ -37,7 +37,7 @@ public class DropwizardTestApplication extends Application<DropwizardTestApplica
     public void run(DropwizardTestApplicationConfiguration configuration, Environment environment) {
         final EmployeeDAO edao = new EmployeeDAO(hibernate.sessionFactory)
         final DBIFactory factory = new DBIFactory()
-        final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "oracle")
+        final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "jdbi")
         final JobDAO jdao = jdbi.onDemand(JobDAO.class)
 
         environment.jersey().setUrlPattern('/api/v1/*')
