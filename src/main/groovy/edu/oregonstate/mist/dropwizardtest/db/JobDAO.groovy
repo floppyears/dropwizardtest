@@ -9,7 +9,11 @@ import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper
 
 @RegisterMapper(JobMapper)
 public interface JobDAO {
-    @SqlQuery('SELECT * FROM PYVPASJ WHERE PYVPASJ_PIDM = :pidm')
+    @SqlQuery("""
+              SELECT *
+              FROM PYVPASJ
+              WHERE PYVPASJ_PIDM = :pidm
+              """)
     List<Job> findByPidm(@Bind('pidm') Long id)
 
     void close()
