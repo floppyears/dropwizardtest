@@ -10,10 +10,13 @@ ruleset {
     ruleset('rulesets/design.xml') {
         'AbstractClassWithoutAbstractMethod' enabled: false
         'AbstractClassWithPublicConstructor' enabled: false
+        'PrivateFieldCouldBeFinal' enabled: false
     }
     ruleset('rulesets/dry.xml')
     ruleset('rulesets/exceptions.xml')
-    ruleset('rulesets/formatting.xml')
+    ruleset('rulesets/formatting.xml') {
+        'LineLength' enabled: false
+    }
     ruleset('rulesets/generic.xml')
     ruleset('rulesets/groovyism.xml')
     ruleset('rulesets/imports.xml') {
@@ -25,6 +28,7 @@ ruleset {
     ruleset('rulesets/naming.xml') {
         'FactoryMethodName' enabled: false
         'FieldName' enabled: false
+        'VariableName' enabled: false
     }
     ruleset('rulesets/security.xml')
     ruleset('rulesets/size.xml')
