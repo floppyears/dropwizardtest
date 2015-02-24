@@ -6,6 +6,7 @@ Test implementation of RESTful API with Dropwizard.
 ## Test
 
     $ gradle test
+    $ java -classpath bin/ojdbc6_g.jar:build/distributions/dropwizardtest-0.1.jar org.junit.runner.JUnitCore edu.oregonstate.mist.dropwizardtest.test.EmployeeTest
 
 
 ## Build

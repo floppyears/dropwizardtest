@@ -31,20 +31,19 @@ repositories {
 }
 
 dependencies {
-    testCompile "io.dropwizard:dropwizard-testing:${dropwizardVersion}"
-    testCompile "org.spockframework:spock-core:1.0-groovy-2.0-SNAPSHOT"
-
-    testRuntime "cglib:cglib-nodep:2.2.2"        // mock classes
-    testRuntime "org.objenesis:objenesis:1.2"    // mock classes without default constructor
-
     compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
     compile "io.dropwizard:dropwizard-core:${dropwizardVersion}"
+    compile "io.dropwizard:dropwizard-client:${dropwizardVersion}"
     compile "io.dropwizard:dropwizard-testing:${dropwizardVersion}"
     compile "io.dropwizard:dropwizard-hibernate:${dropwizardVersion}"
     compile "io.dropwizard:dropwizard-auth:${dropwizardVersion}"
     compile "io.dropwizard:dropwizard-jdbi:${dropwizardVersion}"
     compile 'ch.qos.logback:logback-classic:1.0.7' // log hibernate validation tests
     compile "org.slf4j:log4j-over-slf4j:1.7.2"
+    
+    testCompile 'com.github.jengelman.gradle.plugins:shadow:0.8'
+    testCompile "io.dropwizard:dropwizard-testing:${dropwizardVersion}"
+    testCompile 'junit:junit:4.11'
 }
 
 jar {
@@ -77,3 +76,5 @@ shadow {
     exclude 'META-INF/*.DSA'
     exclude 'META-INF/*.RSA'
 }
+
+test.dependsOn shadowJar
