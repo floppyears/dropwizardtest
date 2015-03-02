@@ -22,6 +22,13 @@ Run application:
            edu.oregonstate.mist.dropwizardtest.DropwizardTestApplication \
            server configuration.yaml
 
+With New Relic:
+
+    $ java -javaagent:newrelic/newrelic.jar \
+           -classpath bin/ojdbc6_g.jar:build/distributions/dropwizardtest-0.1.jar \
+           edu.oregonstate.mist.dropwizardtest.DropwizardTestApplication \
+           server configuration.yaml
+
 
 ## REST Api
 
