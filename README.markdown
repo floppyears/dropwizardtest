@@ -40,7 +40,12 @@ The following HTTP requests were performed with telnet:
     Trying 127.0.0.1...
     Connected to localhost.
     Escape character is '^]'.
-    
+
+
+## HTTPS
+
+To request resources over SSL, use port 8443 and accept the untrusted certificate.
+
 
 ### OPTIONS
 

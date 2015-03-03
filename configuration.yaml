@@ -3,6 +3,11 @@ server:
         - type: http
           port: 8080
           bindHost: localhost
+        - type: https
+          port: 8443
+          keyStorePath: example.keystore
+          keyStorePassword: example
+          validateCerts: false
 logging:
     loggers:
           org.hibernate.SQL: ALL
