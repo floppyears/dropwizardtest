@@ -44,6 +44,8 @@ dependencies {
     compile "io.dropwizard:dropwizard-jdbi:${dropwizardVersion}"
     compile 'ch.qos.logback:logback-classic:1.0.7' // log hibernate validation tests
     compile "org.slf4j:log4j-over-slf4j:1.7.2"
+    compile 'io.dropwizard.metrics:metrics-core:${metrics.version}'
+    compile 'com.palominolabs.metrics:metrics-new-relic:1.0.5'
 }
 
 jar {

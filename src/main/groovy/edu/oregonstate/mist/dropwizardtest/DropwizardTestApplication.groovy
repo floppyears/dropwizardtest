@@ -13,6 +13,9 @@ import edu.oregonstate.mist.dropwizardtest.core.*
 import edu.oregonstate.mist.dropwizardtest.db.*
 import edu.oregonstate.mist.dropwizardtest.health.*
 import edu.oregonstate.mist.dropwizardtest.resources.*
+import com.codahale.metrics.MetricFilter
+import com.palominolabs.metrics.newrelic.*
+import java.util.concurrent.TimeUnit
 
 public class DropwizardTestApplication extends Application<DropwizardTestApplicationConfiguration> {
 
@@ -44,5 +47,14 @@ public class DropwizardTestApplication extends Application<DropwizardTestApplica
         environment.jersey().register(new BasicAuthProvider<AuthenticatedUser>(new SimpleAuthenticator(),'DropwizardTestApplication'))
         environment.jersey().register(new EmployeeResource(edao))
         environment.jersey().register(new JobResource(jdao))
+
+        NewRelicReporter reporter = new NewRelicReporter(environment.metricRegistry,
+                                                         'New Relic Reporter',
+                                                         MetricFilter.ALL,
+                                                         new AllEnabledMetricAttributeFilter(),
+                                                         TimeUnit.SECONDS,
+                                                         TimeUnit.MILLISECONDS,
+                                                         '')
+        reporter.start(1, TimeUnit.MINUTES)
     }
 }
