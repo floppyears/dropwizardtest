@@ -8,6 +8,7 @@ import org.skife.jdbi.v2.tweak.ResultSetMapper
 import java.sql.ResultSet
 import java.sql.SQLException
 
+/* map database columns to job properties */
 public class JobMapper implements ResultSetMapper<Job> {
     public Job map(int i, ResultSet rs, StatementContext sc) throws SQLException {
         Job job = new Job()

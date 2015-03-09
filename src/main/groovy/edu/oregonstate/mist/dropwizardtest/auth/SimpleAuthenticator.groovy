@@ -13,6 +13,7 @@ public class SimpleAuthenticator implements Authenticator<BasicCredentials, Auth
         return Optional.absent()
     }
 
+    /* HTTP Basic Authentication with predefined credentials. */
     private Boolean valid(BasicCredentials credentials) {
         return ((credentials.password == 'password') && (credentials.username == 'username'))
     }

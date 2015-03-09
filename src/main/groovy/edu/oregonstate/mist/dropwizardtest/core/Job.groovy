@@ -1,5 +1,6 @@
 package edu.oregonstate.mist.dropwizardtest.core
 
+/* a job and its properties */
 public class Job {
     Long id
     String positionNumber

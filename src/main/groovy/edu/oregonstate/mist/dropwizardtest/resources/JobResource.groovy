@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response
 
 import com.codahale.metrics.annotation.Timed
 
+/* job resources */
 @Path('job')
 @Produces(MediaType.APPLICATION_JSON)
 class JobResource {
@@ -25,12 +26,14 @@ class JobResource {
         this.jobDAO = jobDAO
     }
 
+    /* HTTP methods allowed on job/{pidm} urls */
     @OPTIONS
     @Path('{pidm: \\d+}')
     public List optionsByPidm() {
         return ['OPTIONS', 'GET']
     }
 
+    /* serialized list of jobs with given id */
     @GET
     @Timed
     @Path('{pidm: \\d+}')

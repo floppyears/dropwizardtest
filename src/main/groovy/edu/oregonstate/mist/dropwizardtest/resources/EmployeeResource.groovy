@@ -23,6 +23,7 @@ import com.codahale.metrics.annotation.Timed
 import com.google.common.base.Optional
 import javax.validation.Valid
 
+/* employee resources */
 @Path('employee')
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -34,23 +35,27 @@ public class EmployeeResource {
         this.employeeDAO = employeeDAO
     }
 
+    /* HTTP methods allowed on employee url */
     @OPTIONS
     public List options() {
         return ['OPTIONS', 'PUT']
     }
 
+    /* create or update employee */
     @PUT
     @UnitOfWork
     public Employee setEmployee(@Valid Employee employee) {
         return employeeDAO.set(employee)
     }
 
+    /* HTTP methods allowed on employee/{id} urls */
     @OPTIONS
     @Path('{id: \\d+}')
     public List optionsById() {
         return ['OPTIONS', 'GET']
     }
 
+    /* JSON serialization of employee with given id */
     @GET
     @Timed
     @Path('{id: \\d+}')
@@ -65,12 +70,14 @@ public class EmployeeResource {
         return employee.get()
     }
 
+    /* HTTP methods allowed on employee/{id}/OnidLoginId urls */
     @OPTIONS
     @Path('{id: \\d+}/OnidLoginId')
     public List optionsOnid() {
         return ['OPTIONS', 'GET']
     }
 
+    /* ONID login string requiring authentication */
     @GET
     @Path('{id: \\d+}/OnidLoginId')
     @Produces(MediaType.TEXT_PLAIN)

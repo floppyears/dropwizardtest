@@ -24,12 +24,14 @@ buildscript {
     }
 }
 
+/* maven repositories */
 repositories {
     mavenLocal()
     mavenCentral()
     maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
+/* maven dependencies */
 dependencies {
     testCompile "io.dropwizard:dropwizard-testing:${dropwizardVersion}"
 
@@ -60,11 +62,13 @@ jar {
     }
 }
 
+/* detect problems with code and style */
 codenarc {
     configFile = rootProject.file('codenarcrule.groovy')
     reportFormat = System.properties['codeNarcOutput'] ?: 'html'
 }
 
+/* build a single java archive */
 shadow {
     baseName "${project.baseName}"
     artifactAttached false
