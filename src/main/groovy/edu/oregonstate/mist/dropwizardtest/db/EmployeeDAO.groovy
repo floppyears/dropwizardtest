@@ -1,8 +1,9 @@
 package edu.oregonstate.mist.dropwizardtest.db
 
-import com.google.common.base.Optional
 import edu.oregonstate.mist.dropwizardtest.core.Employee
+
 import io.dropwizard.hibernate.AbstractDAO
+import com.google.common.base.Optional
 import org.hibernate.SessionFactory
 
 /* Hibernate Data Access Object representing an Employee */

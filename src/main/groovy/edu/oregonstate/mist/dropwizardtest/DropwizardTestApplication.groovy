@@ -1,5 +1,11 @@
 package edu.oregonstate.mist.dropwizardtest
 
+import edu.oregonstate.mist.dropwizardtest.auth.*
+import edu.oregonstate.mist.dropwizardtest.core.*
+import edu.oregonstate.mist.dropwizardtest.db.*
+import edu.oregonstate.mist.dropwizardtest.health.*
+import edu.oregonstate.mist.dropwizardtest.resources.*
+
 import io.dropwizard.Application
 import io.dropwizard.auth.basic.BasicAuthProvider
 import io.dropwizard.setup.Bootstrap
@@ -8,11 +14,6 @@ import io.dropwizard.hibernate.HibernateBundle
 import io.dropwizard.db.DataSourceFactory
 import io.dropwizard.jdbi.DBIFactory
 import org.skife.jdbi.v2.DBI
-import edu.oregonstate.mist.dropwizardtest.auth.*
-import edu.oregonstate.mist.dropwizardtest.core.*
-import edu.oregonstate.mist.dropwizardtest.db.*
-import edu.oregonstate.mist.dropwizardtest.health.*
-import edu.oregonstate.mist.dropwizardtest.resources.*
 import com.codahale.metrics.MetricFilter
 import com.palominolabs.metrics.newrelic.*
 import java.util.concurrent.TimeUnit
