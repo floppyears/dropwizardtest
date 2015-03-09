@@ -6,15 +6,14 @@ import io.dropwizard.hibernate.AbstractDAO
 import com.google.common.base.Optional
 import org.hibernate.SessionFactory
 
-/* Hibernate Data Access Object representing an Employee */
+/* Hibernate data access object representing an employee */
 class EmployeeDAO extends AbstractDAO<Employee> {
 
-    /* Create */
     public EmployeeDAO(SessionFactory factory) {
         super(factory)
     }
 
-    /* Read */
+    /* read */
     public Optional<Employee> findById(Long id) {
         return Optional.fromNullable(get(id))
     }
@@ -23,7 +22,7 @@ class EmployeeDAO extends AbstractDAO<Employee> {
         return list(namedQuery('edu.oregonstate.mist.core.Employee.findAll'))
     }
 
-    /* Update */
+    /* create, update */
     public Employee set(Employee employee) {
         return persist(employee)
     }
