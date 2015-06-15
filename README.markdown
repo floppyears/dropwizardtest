@@ -12,13 +12,9 @@ Test implementation of RESTful API with Dropwizard.
 
 Define database connection in `configuration.yaml`:
 
-To connect to the database, you'll need to download `ojdbc6_g.jar` from Oracle's website.
+To connect to the database, you'll need to download `ojdbc6_g.jar` from [Oracle's download page](http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html). You must accept Oracle's terms and conditions and the download can be found a few lines below the terms of agreement. 
 
-Link:  http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html
-
-You must accept Oracle's terms and conditions and the download can be found a few lines below the terms of agreement. After downloading the jar, in your main directory, create a `bin` file and move the jar into it. Next you'll need to modify `configuration.yaml`.  Under the `database:` section, update the `user:`, `password:`, and `url:` sections with your credentials.
-
-To obtain credentials for our specific database, you can contact Taylor.
+After downloading the jar, in your main directory, create a `bin` file and move the jar into it. Next you'll need to modify `configuration.yaml`.  Under the `database:` section, update the `user:`, `password:`, and `url:` sections with your credentials.
 
 Compile application into a single Java archive:
 
