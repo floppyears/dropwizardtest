@@ -20,7 +20,7 @@ You must accept Oracle's terms and conditions and the download can be found a fe
 
 To obtain credentials for our specific database, you can contact Taylor.
 
-Compile application into single Java archive:
+Compile application into a single Java archive:
 
     $ gradle shadowJar
 
