@@ -10,9 +10,13 @@ Test implementation of RESTful API with Dropwizard.
 
 ## Build
 
-Define database connection in `configuration.yaml`.
+Define database connection in `configuration.yaml`:
 
-Compile application into single Java archive:
+To connect to the database, you'll need to download `ojdbc6_g.jar` from [Oracle's download page](http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html). You must accept Oracle's terms and conditions and the download can be found a few lines below the terms of agreement. 
+
+After downloading the jar, in your main directory, create a `bin` file and move the jar into it. Next you'll need to modify `configuration.yaml`.  Under the `database:` section, update the `user:`, `password:`, and `url:` sections with your credentials.
+
+Compile application into a single Java archive:
 
     $ gradle shadowJar
 
@@ -21,14 +25,6 @@ Run application:
     $ java -classpath bin/ojdbc6_g.jar:build/distributions/dropwizardtest-0.1.jar \
            edu.oregonstate.mist.dropwizardtest.DropwizardTestApplication \
            server configuration.yaml
-
-With New Relic:
-
-    $ java -javaagent:newrelic/newrelic.jar \
-           -classpath bin/ojdbc6_g.jar:build/distributions/dropwizardtest-0.1.jar \
-           edu.oregonstate.mist.dropwizardtest.DropwizardTestApplication \
-           server configuration.yaml
-
 
 ## REST Api
 
