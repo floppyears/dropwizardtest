@@ -1,84 +1,60 @@
-import com.github.jengelman.gradle.plugins.shadow.transformers.AppendingTransformer
-import com.github.jengelman.gradle.plugins.shadow.transformers.AppendingTransformer
-import com.github.jengelman.gradle.plugins.shadow.transformers.ManifestResourceTransformer
-import com.github.jengelman.gradle.plugins.shadow.transformers.ServiceFileTransformer
-
-apply plugin: 'codenarc'
+// https://docs.gradle.org/current/userguide/groovy_plugin.html
 apply plugin: 'groovy'
-apply plugin: 'maven'
-apply plugin: 'shadow'
 
-version=currentVersion
-group=currentGroup
+// https://docs.gradle.org/current/userguide/codenarc_plugin.html
+apply plugin: 'codenarc'
 
+// https://docs.gradle.org/current/userguide/idea_plugin.html
+apply plugin: 'idea'
+
+// https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow
+apply plugin: 'com.github.johnrengelman.shadow'
+
+// https://docs.gradle.org/current/userguide/organizing_build_logic.html#sec:external_dependencies
 buildscript {
     repositories {
-        mavenLocal()
         jcenter()
-        maven { url 'http://repo.jfrog.org/artifactory/gradle-plugins' }
+        maven {
+	        url 'https://plugins.gradle.org/m2/'
+        }
     }
-
     dependencies {
-        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:2.0.16'
-        classpath 'com.github.jengelman.gradle.plugins:shadow:0.8'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.1'
     }
 }
 
-/* maven repositories */
+// https://docs.gradle.org/current/userguide/artifact_dependencies_tutorial.html#N10621
 repositories {
-    mavenLocal()
     mavenCentral()
-    maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
-/* maven dependencies */
+// https://docs.gradle.org/current/userguide/artifact_dependencies_tutorial.html#N105E1
 dependencies {
-    testCompile "io.dropwizard:dropwizard-testing:${dropwizardVersion}"
-
-    testRuntime "cglib:cglib-nodep:2.2.2"        // mock classes
-    testRuntime "org.objenesis:objenesis:1.2"    // mock classes without default constructor
-
-    compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
+    compile "org.codehaus.groovy:groovy:${groovyVersion}"
     compile "io.dropwizard:dropwizard-core:${dropwizardVersion}"
-    compile "io.dropwizard:dropwizard-testing:${dropwizardVersion}"
+    compile "io.dropwizard:dropwizard-jdbi:${dropwizardVersion}"
     compile "io.dropwizard:dropwizard-hibernate:${dropwizardVersion}"
     compile "io.dropwizard:dropwizard-auth:${dropwizardVersion}"
-    compile "io.dropwizard:dropwizard-jdbi:${dropwizardVersion}"
-    compile 'ch.qos.logback:logback-classic:1.0.7' // log hibernate validation tests
-    compile "org.slf4j:log4j-over-slf4j:1.7.2"
-    compile 'io.dropwizard.metrics:metrics-core:${metrics.version}'
-    compile 'com.palominolabs.metrics:metrics-new-relic:1.0.5'
 }
 
-jar {
+codenarc {
+    configFile = new File("config/codenarc/codenarc.groovy")
+}
+
+// TODO: version jars by commit
+// https://github.com/johnrengelman/shadow
+shadowJar {
     manifest {
         attributes 'Main-Class': "${mainClass}"
-        attributes 'Built-Date': new Date() //now
-        attributes 'Built-By': System.getProperty('user.name')
-        attributes 'Build-Jdk': System.getProperty('java.version')
-        attributes 'Implementation-Title': project.name
-        attributes 'Implementation-Version': project.version
-        attributes 'Implementation-Vendor-Id': project.group
     }
+    mergeServiceFiles()
 }
 
-/* detect problems with code and style */
-codenarc {
-    configFile = rootProject.file('codenarcrule.groovy')
-    reportFormat = System.properties['codeNarcOutput'] ?: 'html'
-}
+build.dependsOn shadowJar
 
-/* build a single java archive */
-shadow {
-    baseName "${project.baseName}"
-    artifactAttached false
-    destinationDir "${project.buildDir}/distributions"
-
-    transformer(ServiceFileTransformer)
-    transformer(ManifestResourceTransformer) { attributes 'Main-Class': 'edu.oregonstate.mist.dropwizardtest.DropwizardTestApplication' }
-    transformer(AppendingTransformer) { resource = 'META-INF/spring.handlers' }
-    transformer(AppendingTransformer) { resource = 'META-INF/spring.schemas' }
-
-    exclude 'META-INF/*.DSA'
-    exclude 'META-INF/*.RSA'
+// FIXME: use ShadowJar (java -jar build/libs/web-api-skeleton-all.jar server configuration.yaml)
+task run(type: JavaExec, dependsOn: build) {
+    main = "${mainClass}"
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['server', 'configuration.yaml']
 }

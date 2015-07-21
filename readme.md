@@ -22,7 +22,7 @@ Compile application into a single Java archive:
 
 Run application:
 
-    $ java -classpath bin/ojdbc6_g.jar:build/distributions/dropwizardtest-0.1.jar \
+    $ java -classpath bin/ojdbc6_g.jar:build/libs/dropwizard-test-all.jar \
            edu.oregonstate.mist.dropwizardtest.DropwizardTestApplication \
            server configuration.yaml
 
