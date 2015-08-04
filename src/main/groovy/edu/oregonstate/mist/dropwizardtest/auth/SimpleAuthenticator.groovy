@@ -10,11 +10,11 @@ public class SimpleAuthenticator implements Authenticator<BasicCredentials, Auth
         if (valid(credentials)) {
             return Optional.of(new AuthenticatedUser(credentials.username))
         }
-        return Optional.absent()
+        Optional.absent()
     }
 
     /* HTTP Basic Authentication with predefined credentials. */
     private Boolean valid(BasicCredentials credentials) {
-        return ((credentials.password == 'password') && (credentials.username == 'username'))
+        ((credentials.password == 'password') && (credentials.username == 'username'))
     }
 }

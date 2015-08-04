@@ -24,7 +24,7 @@ public class DropwizardTestApplication extends Application<DropwizardTestApplica
         new HibernateBundle<DropwizardTestApplicationConfiguration>(Employee) {
             @Override
             public DataSourceFactory getDataSourceFactory(DropwizardTestApplicationConfiguration configuration) {
-                return configuration.dataSourceFactory
+                configuration.dataSourceFactory
             }
         }
 
@@ -50,7 +50,7 @@ public class DropwizardTestApplication extends Application<DropwizardTestApplica
 
         /* enable HTTP basic authentication
            per http://dropwizard.io/manual/auth.html#basic-authentication */
-        environment.jersey().register(AuthFactory.binder(new BasicAuthFactory<String>(new SimpleAuthenticator(), 'DropwizardTestApplication', AuthenticatedUser.class)));
+        environment.jersey().register(AuthFactory.binder(new BasicAuthFactory<String>(new SimpleAuthenticator(), 'DropwizardTestApplication', AuthenticatedUser.class)))
     }
 
     /* main method */

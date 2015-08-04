@@ -30,7 +30,7 @@ class JobResource {
     @OPTIONS
     @Path('{pidm: \\d+}')
     public List optionsByPidm() {
-        return ['OPTIONS', 'GET']
+        ['OPTIONS', 'GET']
     }
 
     /* serialized list of jobs with given id */
@@ -44,6 +44,6 @@ class JobResource {
             throw new WebApplicationException(Response.Status.NOT_FOUND)
         }
 
-        return jobs
+        jobs
     }
 }

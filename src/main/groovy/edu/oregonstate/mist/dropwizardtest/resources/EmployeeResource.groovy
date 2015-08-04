@@ -38,21 +38,21 @@ public class EmployeeResource {
     /* HTTP methods allowed on employee url */
     @OPTIONS
     public List options() {
-        return ['OPTIONS', 'PUT']
+        ['OPTIONS', 'PUT']
     }
 
     /* create or update employee */
     @PUT
     @UnitOfWork
     public Employee setEmployee(@Valid Employee employee) {
-        return employeeDAO.set(employee)
+        employeeDAO.set(employee)
     }
 
     /* HTTP methods allowed on employee/{id} urls */
     @OPTIONS
     @Path('{id: \\d+}')
     public List optionsById() {
-        return ['OPTIONS', 'GET']
+        ['OPTIONS', 'GET']
     }
 
     /* JSON serialization of employee with given id */
@@ -67,14 +67,14 @@ public class EmployeeResource {
             throw new WebApplicationException(Response.Status.NOT_FOUND)
         }
 
-        return employee.get()
+        employee.get()
     }
 
     /* HTTP methods allowed on employee/{id}/OnidLoginId urls */
     @OPTIONS
     @Path('{id: \\d+}/OnidLoginId')
     public List optionsOnid() {
-        return ['OPTIONS', 'GET']
+        ['OPTIONS', 'GET']
     }
 
     /* ONID login string requiring authentication */
@@ -89,6 +89,6 @@ public class EmployeeResource {
             throw new WebApplicationException(Response.Status.NOT_FOUND)
         }
 
-        return employee.get().onidLoginId
+        employee.get().onidLoginId
     }
 }
