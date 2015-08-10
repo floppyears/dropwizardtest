@@ -44,12 +44,12 @@ public class Employee {
     /* Override equals to implement Serializable */
     @Override
     public boolean equals(Object obj) {
-        return ((obj instanceof Employee) && (((Employee) obj).id == id))
+        ((obj instanceof Employee) && (((Employee) obj).id == id))
     }
 
     /* Override hashCode to implement Serializable */
     @Override
     public int hashCode() {
-        return id
+        id
     }
 }

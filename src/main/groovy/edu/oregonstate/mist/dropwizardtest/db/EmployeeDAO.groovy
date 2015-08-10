@@ -15,15 +15,15 @@ class EmployeeDAO extends AbstractDAO<Employee> {
 
     /* read */
     public Optional<Employee> findById(Long id) {
-        return Optional.fromNullable(get(id))
+        Optional.fromNullable(get(id))
     }
 
     public List<Employee> findAll() {
-        return list(namedQuery('edu.oregonstate.mist.core.Employee.findAll'))
+        list(namedQuery('edu.oregonstate.mist.core.Employee.findAll'))
     }
 
     /* create, update */
     public Employee set(Employee employee) {
-        return persist(employee)
+        persist(employee)
     }
 }

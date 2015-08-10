@@ -42,6 +42,6 @@ public class JobMapper implements ResultSetMapper<Job> {
             sgrpCode        = rs.getString 'PYVPASJ_SGRP_CODE'
         }
 
-        return job
+        job
     }
 }

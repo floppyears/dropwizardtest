@@ -18,6 +18,6 @@ public class DropwizardTestApplicationConfiguration extends Configuration {
     private DataSourceFactory database = new DataSourceFactory()
 
     public DataSourceFactory getDataSourceFactory() {
-        return database
+        database
     }
 }
